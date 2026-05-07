@@ -1,0 +1,39 @@
+{
+  "name": "playwright-agent-hybrid",
+  "version": "1.0.0",
+  "description": "Hybrid AI agent (Gemini + Claude) that generates Playwright tests via MCP",
+  "type": "module",
+  "main": "agent.js",
+  "scripts": {
+    "agent": "node agent.js",
+    "agent:cheap": "node agent.js --model cheap",
+    "agent:smart": "node agent.js --model smart",
+    "agent:auto": "node agent.js --auto",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report",
+    "install:browsers": "playwright install chromium",
+    "install:mcp": "npm install -g @playwright/mcp"
+  },
+  "keywords": [
+    "playwright",
+    "mcp",
+    "gemini",
+    "claude",
+    "anthropic",
+    "ai-agent",
+    "test-automation",
+    "hybrid"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@google/genai": "^1.50.1",
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@playwright/test": "^1.48.0",
+    "dotenv": "^17.4.2",
+    "openai": "^6.35.0"
+  }
+}

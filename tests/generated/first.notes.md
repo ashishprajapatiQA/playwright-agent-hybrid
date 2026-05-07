@@ -1,0 +1,1 @@
+The verification of the heading was performed by inspecting the browser snapshot to confirm the presence and text of the `h1` element. The Playwright test uses `page.getByRole('heading', { name: 'Example Domain' })` to locate the heading and `toBeVisible()` to assert its presence.
