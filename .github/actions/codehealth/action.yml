@@ -1,0 +1,55 @@
+name: "Uzera Code Health Scan"
+description: "Installs the Uzera CLI via the official install script, indexes a repository, and runs a deterministic code-health scan, publishing results to the job summary."
+
+inputs:
+  path:
+    description: "Path to the repository to scan, relative to the workspace."
+    required: false
+    default: "."
+  scanner-key:
+    description: "Uzera scanner key used to authenticate when sending results to the server. Required."
+    required: true
+  install-url:
+    description: "URL of the Uzera install script. The installed CLI is a self-contained artifact that bundles the native tree-sitter grammars for the runner platform."
+    required: false
+    default: "https://api.gainserv.com/api/uzera/install.sh"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check scanner key
+      if: inputs.scanner-key == ''
+      shell: bash
+      run: |
+        echo "::error::No scanner key was provided. Add your Uzera scanner key as a repository secret (e.g. UZERA_SCANNER_KEY) and pass it to this action's 'scanner-key' input."
+        exit 1
+
+    - name: Install Uzera CLI
+      shell: bash
+      run: |
+        curl -fsSL "${{ inputs.install-url }}" | sh
+        # The installer drops the `uzera` symlink in ~/.local/bin; expose it to later steps.
+        echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+    - name: Index repository
+      shell: bash
+      run: uzera index --project "${{ github.workspace }}/${{ inputs.path }}"
+
+    - name: Run code health scan
+      shell: bash
+      env:
+        UZERA_SCANNER_KEY: ${{ inputs.scanner-key }}
+      run: |
+        set -o pipefail
+        uzera codehealth --project "${{ github.workspace }}/${{ inputs.path }}" | tee codehealth-output.txt
+
+    - name: Publish insights to job summary
+      shell: bash
+      run: |
+        {
+          echo "## Code Health Report"
+          echo ""
+          echo '```'
+          cat codehealth-output.txt
+          echo '```'
+        } >> "$GITHUB_STEP_SUMMARY"

@@ -1,0 +1,23 @@
+name: "QA Uzera Code Health Scan"
+
+on:
+  push:
+    branches:
+      - qa
+    paths-ignore:
+      - "**.md"
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Uzera Code Health scan
+        uses: ./.github/actions/codehealth
+        with:
+          scanner-key: ${{ secrets.UZERA_SCANNER_KEY }}
