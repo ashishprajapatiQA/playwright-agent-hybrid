@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - qa
+      - main
     paths-ignore:
       - "**.md"
-      - main
+      
 
 permissions:
   contents: read
