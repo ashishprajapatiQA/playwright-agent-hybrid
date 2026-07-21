@@ -6,6 +6,7 @@ on:
       - qa
     paths-ignore:
       - "**.md"
+      - main
 
 permissions:
   contents: read
