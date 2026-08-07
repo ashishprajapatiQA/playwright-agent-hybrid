@@ -14,7 +14,7 @@ jobs:
  
       - name: Install Uzera CLI
         run: |
-          curl -fsSL "https://api.gainserv.com/api/uzera/install.sh" | sh
+          curl -fsSL "https://api.uzera.com/api/uzera/install.sh" | sh
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
  
       - name: Index repository
@@ -22,5 +22,5 @@ jobs:
  
       - name: Upload wiki
         env:
-          UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY }}
+          UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY_PROD }}
         run: uzera wiki push --project "${{ github.workspace }}"

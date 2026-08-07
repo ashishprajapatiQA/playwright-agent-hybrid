@@ -1,0 +1,37 @@
+name: Code Health
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  code-health:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Uzera CLI
+        run: |
+          curl -fsSL "https://api.uzera.com/api/uzera/install.sh" | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Index repository
+        run: uzera index --project "${{ github.workspace }}"
+
+      - name: Run code health scan
+        env:
+          UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY_PROD }}
+        run: |
+          set -o pipefail
+          uzera codehealth --project "${{ github.workspace }}" | tee codehealth-output.txt
+
+      - name: Publish insights to job summary
+        run: |
+          {
+            echo "## Code Health Report"
+            echo ""
+            echo '```'
+            cat codehealth-output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
