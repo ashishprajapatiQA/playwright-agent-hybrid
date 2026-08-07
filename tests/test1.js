@@ -1,2 +1,5 @@
-dgdf
-console.log("test1");
+// testing code review feature
+
+const isOwner = (user)=> user === 'sid';
+
+console.log(isOwner('sid')); // true
