@@ -3,7 +3,7 @@ description: "Installs the Uzera CLI via the official install script, indexes a 
 
 inputs:
   path:
-    description: "Path to the repository to scan, relative to the workspace."
+    description: "Path to the repository to scan, relative to the workspace.ok"
     required: false
     default: "."
   scanner-key:
