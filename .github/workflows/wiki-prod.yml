@@ -1,4 +1,4 @@
-name: Wiki
+name: Wiki Production
  
 on:
   push:
