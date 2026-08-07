@@ -1,0 +1,32 @@
+name: Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        run: git fetch origin "${{ github.base_ref }}:refs/heads/${{ github.base_ref }}"
+
+      - name: Install Uzera CLI
+        run: |
+          curl -fsSL "https://api.gainserv.com/api/uzera/install.sh" | sh
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Run code review scan
+        env:
+          UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY }}
+        run: |
+          uzera codereview \
+            --project "${{ github.workspace }}" \
+            --base-branch "${{ github.base_ref }}" \
+            --head-branch "${{ github.head_ref }}" \
+            --pr-number "${{ github.event.pull_request.number }}"
