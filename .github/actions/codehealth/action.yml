@@ -12,7 +12,7 @@ inputs:
   install-url:
     description: "URL of the Uzera install script. The installed CLI is a self-contained artifact that bundles the native tree-sitter grammars for the runner platform."
     required: false
-    default: "https://api.gainserv.com/api/uzera/install.sh"
+    default: "https://api.uzera.com/api/uzera/install.sh"
 
 runs:
   using: "composite"
