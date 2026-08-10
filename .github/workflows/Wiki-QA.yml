@@ -1,4 +1,4 @@
-name: Wiki QA
+name: Knowledge Base QA
  
 on:
   push:

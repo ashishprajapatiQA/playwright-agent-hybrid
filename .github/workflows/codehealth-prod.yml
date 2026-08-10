@@ -1,4 +1,4 @@
-name: Code Health
+name: Code Health Production
 
 on:
   push:
