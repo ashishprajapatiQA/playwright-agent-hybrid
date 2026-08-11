@@ -11,5 +11,5 @@ console.log("test1");
 
 // if (isValid) console.log("Valid");
 
-// console.log("Debugging info");
+ console.log("Debugging info");
 
