@@ -3,14 +3,14 @@ console.log("test1");
 
 if (age == "18") { console.log("Adult"); }
 
-var name = "John";
+// var name = "John";
 
-let city = "Ahmedabad"; console.log(city); // never reassigned
+// let city = "Ahmedabad"; console.log(city); // never reassigned
 
-function greet() { let unusedVar = 10; console.log("Hello"); }
+// function greet() { let unusedVar = 10; console.log("Hello"); }
 
-if (isValid) console.log("Valid");
+// if (isValid) console.log("Valid");
 
- console.log("Debugging info");
+//  console.log("Debugging info");
 
-  jhbdaihsdasdaisdhji
+//   jhbdaihsdasdaisdhji
