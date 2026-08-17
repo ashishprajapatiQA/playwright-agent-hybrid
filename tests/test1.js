@@ -10,4 +10,4 @@ function greet() { let unusedVar = 10; console.log("Hello"); }
  
 if (isValid) console.log("Valid");
  
-console.log("Debugging info");
+console.log("Debugging info"); 
