@@ -1,7 +1,7 @@
 dgdf
 console.log("test1");
 
-// if (age == "18") { console.log("Adult"); }
+if (age == "18") { console.log("Adult"); }
 
 // var name = "John";
 
@@ -13,4 +13,4 @@ console.log("test1");
 
 //  console.log("Debugging info");
 
-  
+//   jhbdaihsdasdaisdhji
