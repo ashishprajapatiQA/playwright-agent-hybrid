@@ -13,6 +13,12 @@ if (isValid) console.log("Valid");
 
  console.log("Debugging info");
 
+<<<<<<< HEAD
   jhbdaihsdasdaisdhji
 
   console.log("End of test1");
+=======
+//   jhbdaihsdasdaisdhji
+
+console.log("End of test1");
+>>>>>>> 9bb7ae9 (fix: clean up test1.js and ensure proper logging at the end)
