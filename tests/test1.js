@@ -14,3 +14,5 @@ if (age == "18") { console.log("Adult"); }
 //  console.log("Debugging info");
 
 //   jhbdaihsdasdaisdhji
+
+console.log("End of test1");
