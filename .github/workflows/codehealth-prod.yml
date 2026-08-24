@@ -8,6 +8,8 @@ on:
 jobs:
   code-health:
     runs-on: ubuntu-latest
+    env:
+      UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY_PROD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -20,18 +22,4 @@ jobs:
         run: uzera index --project "${{ github.workspace }}"
 
       - name: Run code health scan
-        env:
-          UZERA_SCANNER_KEY: ${{ secrets.UZERA_SCANNER_KEY_PROD }}
-        run: |
-          set -o pipefail
-          uzera codehealth --project "${{ github.workspace }}" | tee codehealth-output.txt
-
-      - name: Publish insights to job summary
-        run: |
-          {
-            echo "## Code Health Report"
-            echo ""
-            echo '```'
-            cat codehealth-output.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
+        run: uzera codehealth --project "${{ github.workspace }}"
