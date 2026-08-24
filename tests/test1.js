@@ -14,3 +14,5 @@ if (isValid) console.log("Valid");
  console.log("Debugging info");
 
   jhbdaihsdasdaisdhji
+
+  console.log("End of test1");
