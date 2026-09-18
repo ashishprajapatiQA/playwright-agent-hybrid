@@ -6,6 +6,7 @@ import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import { createProvider, createAutoProvider, listPresets } from "./lib/provider-factory.js";
 
 // ─────────────────────────────────────────────────────────
@@ -68,7 +69,7 @@ async function connectMCP() {
 // ─────────────────────────────────────────────────────────
 // EXTRACT & SAVE GENERATED TEST
 // ─────────────────────────────────────────────────────────
-function extractAndSaveTest(agentOutput, testName) {
+export function extractAndSaveTest(agentOutput, testName) {
   const codeMatch = agentOutput.match(/```(?:javascript|js|typescript|ts)\n([\s\S]+?)```/);
 
   if (!codeMatch) {
@@ -103,7 +104,7 @@ function extractAndSaveTest(agentOutput, testName) {
 // ─────────────────────────────────────────────────────────
 // HELP TEXT
 // ─────────────────────────────────────────────────────────
-function showHelp() {
+export function showHelp() {
   console.log(`
 🤖 Hybrid Playwright Agent — Gemini + Claude
 
@@ -158,7 +159,7 @@ WORKFLOW:
 // ─────────────────────────────────────────────────────────
 // CLI ARG PARSING
 // ─────────────────────────────────────────────────────────
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const args = argv.slice(2);
   const opts = { goal: [], name: null, model: null, auto: false };
 
@@ -241,4 +242,6 @@ async function main() {
   process.exit(0);
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
