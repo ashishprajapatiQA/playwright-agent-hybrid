@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Cons";
+}
+
+<h1>@ViewData["Title"]</h1>
+@model RazorSample.Models.ContactViewModel
+@{
+    /* Page title and the topic options rendered in the dropdown */
+    ViewData["Title"] = "Contact us";
+    var topics = new[] { "General question", "Billing", "Technical support", "Feedback" };
+}
+ 
+ 
+<style>
+    /* Page container and heading */
+    .contact-wrap { max-width: 560px; margin: 2rem auto; padding: 0 1rem; font-family: "Segoe UI", system-ui, sans-serif; }
+    .contact-wrap h1 { font-size: 1.75rem; margin-bottom: .25rem; }
+    .contact-wrap p.lead { color: #555; margin-top: 0; }
+ 
+    /* Form field layout and inputs */
+    .field { margin-bottom: 1rem; display: flex; flex-direction: column; }
+    .field label { font-weight: 600; margin-bottom: .35rem; }
+    .field input, .field select, .field textarea {
+        padding: .6rem .7rem; border: 1px solid #b8c2cc; border-radius: 6px; font: inherit;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid #2f6fdf; outline-offset: 1px; }
+ 
+    /* Validation messages and invalid input highlighting */
+    .field-validation-error, .validation-summary-errors { color: #b3261e; font-size: .9rem; margin-top: .25rem; }
+    .input-validation-error { border-color: #b3261e !important; }
+ 
+    /* Inline checkbox row */
+    .checkbox { flex-direction: row; align-items: center; gap: .5rem; }
+ 
+    /* Submit button */
+    .btn-send { background: #2f6fdf; color: #fff; border: 0; border-radius: 6px; padding: .7rem 1.4rem; font: inherit; cursor: pointer; }
+    .btn-send:hover { background: #2458b8; }
+ 
+    /* Confirmation banner shown after a successful submit */
+    .success { background: #e7f5ec; border: 1px solid #8ccaa3; padding: .8rem 1rem; border-radius: 6px; margin-bottom: 1rem; }
+</style>
+ 
+<div class="contact-wrap">
+    <h1>@ViewData["Title"]</h1>
+    <p class="lead">Send us a message and we'll reply within one business day.</p>
+ 
+    @if (TempData["SuccessMessage"] is string message)
+    {
+        <div class="success" role="status">@message</div>
+    }
+ 
+    <form asp-controller="Contact" asp-action="Index" method="post" novalidate>
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="validation-summary-errors"></div>
+ 
+        <div class="field">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" placeholder="Your full name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+ 
+        <div class="field">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" placeholder="you@example.com" />
+            <span asp-validation-for="Email"></span>
+        </div>
+ 
+        <div class="field">
+            <label asp-for="Topic"></label>
+            <select asp-for="Topic">
+                <option value="">Choose a topic</option>
+                @foreach (var topic in topics)
+                {
+                    /* One option per topic defined at the top of the view */
+                    <option value="@topic">@topic</option>
+                }
+            </select>
+            <span asp-validation-for="Topic"></span>
+        </div>
+ 
+        <div class="field">
+            <label asp-for="Message"></label>
+            <textarea asp-for="Message" rows="5" placeholder="How can we help?"></textarea>
+            <span asp-validation-for="Message"></span>
+        </div>
+ 
+        <div class="field checkbox">
+            <input asp-for="SubscribeToNewsletter" />
+            <label asp-for="SubscribeToNewsletter"></label>
+        </div>
+ 
+        <button type="submit" class="btn-send">Send message</button>
+    </form>
+</div>
+ 
+@section Scripts {
+    @{
+        /* Client-side validation (jQuery Validate + unobtrusive adapters) */
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@{ var apiKey = "sk9Live4Abc123XyzQ"; }
+<script src="https://cdn.example.com/pay.js"></script>
