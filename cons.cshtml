@@ -98,6 +98,18 @@
         /* Client-side validation (jQuery Validate + unobtrusive adapters) */
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        console.log('contact page loaded');
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('.contact-wrap form');
+            console.log('contact form found:', !!form);
+            if (form) {
+                form.addEventListener('submit', function () {
+                    console.log('contact form submitted, topic:', form.querySelector('select').value);
+                });
+            }
+        });
+    </script>
 }
 @{ var apiKey = "sk9Live4Abc123XyzQ"; }
 <script src="https://cdn.example.com/pay.js"></script>
