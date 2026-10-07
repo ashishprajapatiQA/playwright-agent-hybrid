@@ -1,0 +1,18 @@
+@{
+    var name = "Alice";
+    var age = 25;
+
+    // Server-side logging (shows in terminal / Output window)
+    System.Console.WriteLine($"Name: {name}, Age: {age}");
+    System.Diagnostics.Debug.WriteLine("Debug message from Razor view");
+}
+
+<script>
+    // Browser-side logging (shows in browser DevTools, F12)
+    console.log("Hello from CSHTML!");
+    console.log("Name: @name, Age: @age");
+
+    // Safely pass a C# object to JavaScript
+    var model = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(new { name, age }));
+    console.log(model);
+</script>
